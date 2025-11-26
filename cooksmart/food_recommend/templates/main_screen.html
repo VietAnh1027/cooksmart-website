@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href={% static "food_recommend/css/main_style.css" %}>
+{% endblock extra_css %}
+    
+
+{% block content %}
+<div class="main-wrapper">
+    <h1 id="welcome">Hôm nay bạn muốn nấu món gì ?</h1>
+    <div class="search-area">
+
+        <div class="input-wrapper">
+            <input type="text" id="user-input" placeholder="Nhập các nguyên liệu..." oninput="checkInput()" />
+        </div>
+
+        <select id="result-count" style="padding:10px;border-radius:15px;border:2px solid #f4a460;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5" selected>5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+
+        <button class="submit-btn" id="submit-btn" onclick="sendQuery()">Tìm</button>
+    </div>
+
+    <div id="results" class="result-area"></div>
+</div>
+<form id="logoutForm" action="{% url 'logout' %}" method="POST">{% csrf_token %}</form>
+{% endblock content %}
+
+{% block extra_js %}
+<script src={% static "food_recommend/js/main_src.js" %}></script>
+{% endblock extra_js %}

@@ -1,0 +1,77 @@
+{# templates/food_recommend/admin_foods.html #}
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Food Adding</title>
+  <link rel="stylesheet" href="{% static 'food_recommend/css/admin.css' %}">
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div>
+          <h1>Admin — Bản ghi chờ</h1>
+        </div>
+      </header>
+
+      {% if messages %}
+        <div class="notice">
+          {% for m in messages %}
+            <div>{{ m }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Tiêu đề</th>
+            <th>Nguyên liệu</th>
+            <th>Cách nấu</th>
+            <th>NER</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+            <tr>
+              <td class="small">{{ item.index_temp }}</td>
+              <td>{{ item.title }}</td>
+              <td><pre style="white-space:pre-wrap;margin:0;">{{ item.ingredients }}</pre></td>
+              <td><pre style="white-space:pre-wrap;margin:0;">{{ item.directions }}</pre></td>
+              <td><pre style="white-space:pre-wrap;margin:0;">{{ item.ner }}</pre></td>
+              <td>
+                <div class="actions">
+                  <!-- Form xóa -->
+                  <form method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{ item.pk }}">
+                    <input type="hidden" name="action" value="delete">
+                    <button type="submit" class="btn btn-delete" onclick="return confirm('Xóa bản ghi này?')">Xóa</button>
+                  </form>
+
+                  <!-- Form thêm (promote) -->
+                  <form method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{ item.pk }}">
+                    <input type="hidden" name="action" value="promote">
+                    <button type="submit" class="btn btn-promote" onclick="return confirm('Thêm vào metadata và xóa khỏi danh sách chờ?')">Thêm</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="6" class="small">Không có bản ghi nào trong food_adding.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký tài khoản</title>
+    <link rel="stylesheet" href={% static "accounts/css/register_style.css" %}>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>🍳 Đăng ký tài khoản</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Đăng ký</button>
+        </form>
+        <div class="login-link">
+            <p>Đã có tài khoản? <a href="{% url 'login' %}">Đăng nhập ngay</a></p>
+        </div>
+    </div>
+</body>
+</html>

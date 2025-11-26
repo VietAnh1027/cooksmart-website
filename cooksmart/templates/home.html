@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block title %}CookSmart{% endblock title %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href={% static "css/home_style.css" %}>
+{% endblock extra_css %}
+
+
+{% block content %}
+    <div class="container">
+        <h1 id="welcome">Hôm nay bạn muốn nấu món gì ?</h1>
+        <div class="input-wrapper">
+            <input type="text" id="user-input" placeholder="Nhập các nguyên liệu..." oninput="checkInput()" />
+            <button class="submit-btn" id="submit-btn">Tìm món</button>
+        </div>
+    </div>
+
+    <form id="logoutForm" action="{% url "logout" %}" method="POST">
+        {% csrf_token %}
+    </form>
+{% endblock content %}

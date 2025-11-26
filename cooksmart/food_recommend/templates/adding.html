@@ -1,0 +1,127 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href={% static "food_recommend/css/main_style.css" %}>
+<link rel="stylesheet" href={% static "food_recommend/css/adding.css" %}>
+
+  <style>
+		{% comment %} .big_container{
+			margin: 0;
+    	padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+   		width: 100%;  
+		}
+    
+    .adding_container{
+			width:100%;
+			max-width:880px;
+			background: #ffffff;
+			border-radius: 12px;
+			box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+			padding:28px;
+    }
+    
+
+    .adding_title{
+      margin:0 0 8px 0;
+      font-size:1.4rem;
+      color: #a0522d;
+			margin-bottom: 30px
+    }
+
+
+    form .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      margin-bottom:12px;
+    }
+
+    label{
+      display:block;
+      font-size:0.85rem;
+      margin-bottom:6px;
+      color:#333;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #e6e6e6;
+      font-size:0.95rem;
+      resize:vertical;
+    }
+
+    textarea{ min-height:120px; }
+
+    .full{
+      grid-column: 1 / -1;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-top:8px;
+    }
+
+    #submitBtn{
+      background: #a0522d;
+      color:#fff;
+      border:none;
+      padding:10px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow: 0 3px 8px rgba(160,82,45,0.18);
+    }
+    button[disabled]{ opacity:0.6; cursor:not-allowed; } {% endcomment %}
+  </style>
+
+{% endblock extra_css %}
+
+{% block content %}
+	<div class="big_container">
+		<div class="adding_container" role="main">
+			<h1 class='adding_title'>Đóng góp món ăn mới</h1>
+
+			<form id="foodForm" method="POST" action="">
+				{% csrf_token %}
+				<div class="grid">
+					<div>
+						<label for="title">Tiêu đề (title)</label>
+						<input id="title" name="title" type="text" required maxlength="200" placeholder="Ví dụ: Gà hầm" />
+					</div>
+
+					<div class="full">
+						<label for="ingredients">Nguyên liệu (ingredients)</label>
+						<textarea id="ingredients" name="ingredients" placeholder="Ví dụ: 1 c. firmly packed brown sugar, 1/2 c. evaporated milk, 1/2 tsp. vanilla"></textarea>
+					</div>
+
+					<div class="full">
+						<label for="directions">Cách nấu (directions)</label>
+						<textarea id="directions" name="directions" placeholder="Cách nấu / hướng dẫn"></textarea>
+					</div>
+
+					<div class="full">
+						<label for="ner">NER</label>
+						<input id="ner" name="ner" type="text" placeholder="Ví dụ: firmly packed brown sugar, evaporated milk, vanilla" />
+					</div>
+				</div>
+
+				<div class="actions">
+					<button id="submitBtn" type="submit" onclick='alert("Cảm ơn sự đóng góp của bạn!")'>Gửi</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock content %}
+

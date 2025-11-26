@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> {% block title %} Cook Smart {% endblock title %}</title>
+    {% comment %} <link rel="stylesheet" href={% static "css/home_style.css" %}> {% endcomment %}
+    {% block extra_css %}{% endblock extra_css %}
+</head>
+
+<header style="width:100%; padding: 15px 40px; display:flex; justify-content:space-between; align-items:center;  top:0; left:0; box-sizing:border-box;">
+    {% comment %} <div class="logo">🍳 CookSmart</div> {% endcomment %}
+    <form action={% url "main" %} method="get">
+        <button class="logo" type='submit'>🍳 CookSmart</button>
+    </form>
+    <div style="display:flex; gap:20px;">
+        <button class="btnHeader" onclick="alert('Thông tin về tôi!');">About me</button>
+        
+        <button class="btnHeader" id="loginBtn" onclick="handleLogin()" >Đăng nhập</button>
+        <form action={% url "adding" %} method="get">
+            <button class="btnHeader btn-highlight" type='submit'>Đóng góp</button>
+        </form>
+    </div>
+</header>
+
+<body>
+    
+    {% block content %}
+    {% endblock content %}
+
+    <script>
+        window.loggedIn = {{ logged_in|yesno:"true,false" }};
+        window.lastName = "{{ last_name|default:''|escapejs }}";
+        const welcome = [`Hôm nay bạn muốn nấu món gì ${window.lastName} ?`, `Hi ${window.lastName}`, `Cùng vào bếp nào ${window.lastName}`];
+    </script>
+    <script src={% static "js/home_src.js" %}></script>
+    {% block extra_js %}
+    {% endblock extra_js %}
+</body>
+
+<footer style="bottom:0; left:0; width:100%; text-align:center; padding:15px; color:#a0522d; font-size:0.9rem;">© 2025 CookSmart - Người bạn đồng hành trong nhà bếp</footer>
+
+</html>
